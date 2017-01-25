@@ -6,34 +6,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var product_list_component_1 = require("./product-list.component");
 var product_detail_component_1 = require("./product-detail.component");
-var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_guard_service_1 = require("./product-guard.service");
-var product_service_1 = require("./product.service");
-var product_routing_module_1 = require("./product-routing.module");
-var shared_module_1 = require("../shared/shared.module");
-var ProductModule = (function () {
-    function ProductModule() {
+var AppRoutingModule = (function () {
+    function AppRoutingModule() {
     }
-    return ProductModule;
+    return AppRoutingModule;
 }());
-ProductModule = __decorate([
+AppRoutingModule = __decorate([
     core_1.NgModule({
-        declarations: [
-            product_list_component_1.ProductListComponent,
-            product_detail_component_1.ProductDetailComponent,
-            product_filter_pipe_1.ProductFilterPipe,
-        ],
         imports: [
-            shared_module_1.SharedModule,
-            product_routing_module_1.AppRoutingModule
+            router_1.RouterModule.forChild([
+                { path: 'products', component: product_list_component_1.ProductListComponent },
+                { path: 'product/:id', canActivate: [product_guard_service_1.ProductDetailGuard],
+                    component: product_detail_component_1.ProductDetailComponent }
+            ])
         ],
-        providers: [
-            product_service_1.ProductService,
-            product_guard_service_1.ProductDetailGuard
-        ]
+        exports: [router_1.RouterModule]
     })
-], ProductModule);
-exports.ProductModule = ProductModule;
-//# sourceMappingURL=product.module.js.map
+], AppRoutingModule);
+exports.AppRoutingModule = AppRoutingModule;
+//# sourceMappingURL=product-routing.module.js.map
